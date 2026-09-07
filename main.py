@@ -116,6 +116,8 @@ def choose_job():
                 completed_jobs.append(current_job)
 
                 player.skill += (current_job.difficulty + current_job.time) / 20
+                if player.skill > 5:
+                    player.skill = 5
 
                 print("Job completed!\n")
                 return current_job

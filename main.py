@@ -116,7 +116,7 @@ def choose_job():
                 current_job.completed = True
                 completed_jobs.append(current_job)
 
-                player.skill += (current_job.difficulty + current_job.time) / 50
+                player.skill += ((current_job.difficulty - player.skill) * current_job.time) / 50
                 if player.skill > 5:
                     player.skill = 5
 
@@ -140,6 +140,10 @@ if __name__ == "__main__":
     while True:
         day += 1
         print(f"--- Day {day} ---")
+        print("")
+        tax = round(player.cash * 0.1)
+        print(f"Daily Tax Deducted: ${tax:.2f}")
+        player.cash -= tax
         if day % 7 == 0:
             print("You wake up feeling rested today. -1 Stress")
             player.stress -= 1

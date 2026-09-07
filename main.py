@@ -67,8 +67,9 @@ def replenish_jobs():
     # We no longer need to check customer_names because job.py handles recycling automatically
     while len(available_jobs) < 5:
         job_type = random.choice([generate_repair, generate_assembly, generate_demolish])
-        new_job = job_type()
-        available_jobs.append(new_job)
+        for i in range(0, 3):
+            new_job = job_type()
+            available_jobs.append(new_job)
 
 
 def choose_job():
@@ -90,14 +91,14 @@ def choose_job():
                     break
 
                 # Skill check
-                if player.skill <= current_job.difficulty / 2:
+                if player.skill < current_job.difficulty / 2:
                     print("You do not have the skill for this job.\n"
                           "If you attempt this job, your stress will increase.\n")
                     attempt = input("Attempt? y/n\n").lower()
                     if attempt == "n":
                         break
                     else:
-                        stressor = round((current_job.difficulty - player.skill) / 2)
+                        stressor = round((current_job.difficulty - player.skill) / 3)
                         if stressor > 2:
                             stressor = 2
                         player.stress += stressor
